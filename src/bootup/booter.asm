@@ -44,6 +44,18 @@ start:
 	int 0x13
 
 
+	cli                               
+ 
+	mov al,00110100b                  ;channel 0, lobyte/hibyte, rate generator
+	out 0x43, al
+ 
+	mov ax,11930         ;ax = 16 bit reload value
+	out 0x40,al                       ;Set low byte of PIT reload value
+	mov al,ah                         ;ax = high 8 bits of reload value
+	out 0x40,al                       ;Set high byte of PIT reload value
+
+	sti
+	
 	
 	mov ax, game_start	
 	mov [cs:0x1c*4+2], ax	; move segment of game to IVT
