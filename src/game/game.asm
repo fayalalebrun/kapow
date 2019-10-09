@@ -11,20 +11,21 @@ jmp short timer_irq
 %include "src/game/var_locs.asm"
 
 main:
-
-	
-
-
 	
 	
 	
 
+	
+	
+	mov word [cs:bomber_x], 0xFF
+
+main_l:	
 	
 
 	
 	call render
-	
-	jmp main
+
+	jmp main_l
 
 timer_irq:
 

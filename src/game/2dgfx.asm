@@ -130,7 +130,7 @@ draw_sprite:
 
 	shr cx, 8
 	
-	call dbg_stp
+	
 	push cx
 ds1:
 	push ax

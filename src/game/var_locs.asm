@@ -1,5 +1,5 @@
-%define var_area_base 0xA000
-%define bomber_x var_area_base		; 2 bytes
+%define var_area_base 0xC000
+%define bomber_x var_area_base		; 2 bytes, fixed point integer with 4 bit fraction
 %define score bomber_x+2		; 2 bytes
 %define paddle_x score+2		; 2 bytes
 %define bomb_base paddle_x+2		; structs

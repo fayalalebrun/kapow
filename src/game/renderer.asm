@@ -22,8 +22,10 @@ render:
 	mov dx, bomb8_loc	;sprite location
 	call draw_sprite
 
-	mov ax, 100 		;y
-	mov bx, 200		;x
+
+	mov  bx, [cs:bomber_x]	;x
+	shr bx, 4		;4 fraction bits
+	mov ax, 11 		;y
 	mov ch, 32		;width
 	mov cl, 32		;height
 	mov dx, bomber_loc	;sprite location
