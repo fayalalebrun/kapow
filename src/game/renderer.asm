@@ -3,7 +3,8 @@ render:
 	push bp
 	mov bp, sp
 
-	
+
+
  	mov ax, 0x0795
  	call draw_background
 	
@@ -42,7 +43,7 @@ copy_buffer:
 	push bp
 	mov bp, sp
 
-		mov cx, 0x7000
+	mov cx, 0x7000
 	mov ds, cx
 	xor si, si             ;ds:si = source
 
@@ -67,4 +68,5 @@ vt_clr:
 
 	
 	mov sp, bp
+	pop bp
 	ret
