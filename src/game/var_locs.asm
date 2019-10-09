@@ -10,6 +10,3 @@
 %define bomb1_state bomb_base 	; 1 byte
 %define bomb1_x bomb1_state+1	; 2 bytes
 %define bomb1_y bomb1_x+2	; 2 bytes
-
-
-	

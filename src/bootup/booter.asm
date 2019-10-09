@@ -34,7 +34,7 @@ start:
 	mov ax, asset_storage
 	mov es, ax
 	mov ah, 0x2
-	mov al, 2
+	mov al, 64
 	mov ch, 0
 	mov dh, 2
 	mov cl, 4
