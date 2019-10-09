@@ -1,7 +1,14 @@
 %define var_area_base 0xC000
+
 %define bomber_x var_area_base		; 2 bytes, fixed point integer with 4 bit fraction
-%define score bomber_x+2		; 2 bytes
+%define bomber_speed bomber_x+2	; 2 bytes
+%define bomber_state bomber_speed+2 	; 1 byte, 0 means going right, 1 means going left
+
+
+%define score bomber_state+1		; 2 bytes
+	
 %define last_rand score+2		; 2 bytes
+	
 %define paddle_x last_rand+2		; 2 bytes
 %define bomb_base paddle_x+2		; structs
 ; There are 16 bombs. Each is structured in the following way:

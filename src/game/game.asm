@@ -13,6 +13,7 @@ jmp short timer_irq
 main:
 
 	call init_rand
+	call init_bomber
 	mov word [cs:bomber_x], 0xFF
 	
 
@@ -20,7 +21,6 @@ main_loop:
 
 	call get_rand
 
-	mov [cs:bomber_x], ax
 	
 	call render
 	
@@ -28,7 +28,7 @@ main_loop:
 	jmp main_loop
 
 timer_irq:
-
+	call update_bomber
 
 
 	iret
@@ -36,7 +36,8 @@ timer_irq:
 
 %include "src/game/renderer.asm"
 %include "src/game/2dgfx.asm"
-%include "src/game/random.asm"	
+%include "src/game/random.asm"
+%include "src/game/bomber.asm"	
 
 
 times 0xFFFF - ($-$$) db 0
