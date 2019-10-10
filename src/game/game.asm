@@ -14,7 +14,7 @@ main:
 
 	call init_rand
 	call init_bomber
-	mov word [cs:bomber_x], 0xFF
+
 	
 
 main_loop:	
