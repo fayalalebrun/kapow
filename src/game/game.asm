@@ -4,6 +4,7 @@ section .text
 
 jmp short main
 jmp short timer_irq
+jmp short keyboard_irq	
 
 %include "src/game/debug.asm"
 
@@ -31,6 +32,9 @@ timer_irq:
 	call update_bomber
 
 
+	iret
+
+keyboard_irq:
 	iret
 
 
