@@ -4,3 +4,4 @@ bits 16
 %define bomb 0x0  ;16x32		
 %define bomb8_loc bomb+16*32 ;8*16
 %define bomber_loc bomb8_loc+8*16 ;32*32
+%define paddle_loc bomber_loc+32*32 ; 32*8

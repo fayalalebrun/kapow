@@ -30,6 +30,7 @@ assets:
 	$(call add_asset,BOMB,16,32)
 	$(call add_asset,BOMB8,8,16)
 	$(call add_asset,BOMBER,32,32)
+	$(call add_asset,PADDLE,32,8)
 
 boot:
 	$(NASM) -f elf32 -F dwarf -g src/bootup/booter.asm -o out/booter.o

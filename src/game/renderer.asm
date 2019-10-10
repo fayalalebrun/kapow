@@ -31,6 +31,13 @@ render:
 	mov cl, 32		;height
 	mov dx, bomber_loc	;sprite location
 	call draw_sprite
+
+	mov ax, 130 		;y
+	mov bx, 32		;x
+	mov ch, 32		;width
+	mov cl, 8		;height
+	mov dx, paddle_loc	;sprite location
+	call draw_sprite
 	
 	call copy_buffer
 	
