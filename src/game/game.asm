@@ -6,8 +6,6 @@ jmp short main
 jmp short timer_irq
 jmp short keyboard_irq	
 
-%include "src/game/debug.asm"
-
 %include "src/game/sprite_constants.asm"
 %include "src/game/var_locs.asm"
 %include "src/game/game_constants.asm"	
@@ -17,6 +15,7 @@ main:
 	call init_rand
 	call init_bomber
 	call init_paddle
+	call init_bombs
 
 main_loop:	
 	
@@ -61,7 +60,8 @@ keyboard_irq:
 %include "src/game/random.asm"
 %include "src/game/bomber.asm"
 %include "src/game/keyboard.asm"
-%include "src/game/paddle.asm"	
+%include "src/game/paddle.asm"
+%include "src/game/bombs.asm"	
 
 
 times 0xFFFF - ($-$$) db 0

@@ -35,7 +35,7 @@ hpic1:
 	shr ax, 4
 	cmp ax, 320-32
 	jb hpid
-	mov word [cs:paddle_x], 0x11F0
+	mov word [cs:paddle_x], (320-32)<<4
 
 hpid:	
 	mov sp, bp

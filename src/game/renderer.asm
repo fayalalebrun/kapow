@@ -23,7 +23,8 @@ render:
 	mov dx, bomb8_loc	;sprite location
 	call draw_sprite
 
-
+	call render_bombs
+	
 	mov  bx, [cs:bomber_x]	;x
 	shr bx, 4		;4 fraction bits
 	mov ax, bomber_initial_y 		;y
@@ -39,8 +40,40 @@ render:
 	mov cl, 8		;height
 	mov dx, paddle_loc	;sprite location
 	call draw_sprite
+
+
 	
 	call copy_buffer
+	
+	mov sp, bp
+	pop bp
+	ret
+
+render_bombs:
+	push bp
+	mov bp, sp
+
+	mov di, number_of_bombs * 2
+	mov bx, 0
+
+r_bl:
+	sub di, 2
+	push di
+	mov bx, 0
+	mov word ax, [cs:bomb_y+bx+di]
+	shr ax, 4
+	mov word cx, [cs:bomb_x+bx+di]
+	mov bx, cx
+	mov ch, 8		;width
+	mov cl, 16		;height
+	mov dx, bomb8_loc	;sprite location
+	call draw_sprite
+	
+
+	pop di
+
+	cmp di, 0
+	jne r_bl
 	
 	mov sp, bp
 	pop bp
