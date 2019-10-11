@@ -16,9 +16,8 @@ main:
 	call init_rand
 	call init_bomber
 
-	
-
 main_loop:	
+	
 
 	call get_rand
 
@@ -29,19 +28,38 @@ main_loop:
 	jmp main_loop
 
 timer_irq:
-	call update_bomber
+	pusha
 
 
+	call update_bomber	
+
+
+	popa
 	iret
 
 keyboard_irq:
+	pusha
+
+	
+
+	call update_keys_pressed
+	
+
+	
+	mov al, 0x61
+	out 0x20, al 		;send EOI
+
+
+
+	popa
 	iret
 
 
 %include "src/game/renderer.asm"
 %include "src/game/2dgfx.asm"
 %include "src/game/random.asm"
-%include "src/game/bomber.asm"	
+%include "src/game/bomber.asm"
+%include "src/game/keyboard.asm"		
 
 
 times 0xFFFF - ($-$$) db 0

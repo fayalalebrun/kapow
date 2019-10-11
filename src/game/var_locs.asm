@@ -7,8 +7,13 @@
 
 
 %define score bomber_dist+2		; 2 bytes
+
+%define keystate score+2 	; 1 byte
+				; bit 0 is left arrow pressed
+				; bit 1 is right arrow pressed
+				; bit 2 is enter key pressed
 	
-%define last_rand score+2		; 2 bytes
+%define last_rand keystate+1		; 2 bytes
 	
 %define paddle_x last_rand+2		; 2 bytes
 %define bomb_base paddle_x+2		; structs

@@ -54,12 +54,11 @@ start:
 	mov al,ah                         ;ax = high 8 bits of reload value
 	out 0x40,al                       ;Set high byte of PIT reload value
 
-
 	
 	mov ax, game_start	
-	mov [cs:0x09*4+2], ax	; move segment of game to IVT
+	mov [cs:0x9*4+2], ax	; move segment of game to IVT
 	mov ax, game_kirq
-	mov [cs:0x09*4], ax	; move address of irq to IVT
+	mov [cs:0x9*4], ax	; move address of irq to IVT
 
 	mov ax, game_start	
 	mov [cs:0x1c*4+2], ax	; move segment of game to IVT
