@@ -9,19 +9,6 @@ render:
  	call draw_background
 	
 
-	mov ax, 100 		;y 
-	mov bx, 50		;x
-	mov ch, 16		;width
-	mov cl, 32		;height
-	mov dx, 0		;sprite location
-	call draw_sprite
-
-	mov ax, 100 		;y
-	mov bx, 100		;x
-	mov ch, 8		;width
-	mov cl, 16		;height
-	mov dx, bomb8_loc	;sprite location
-	call draw_sprite
 
 	call render_bombs
 	

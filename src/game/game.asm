@@ -33,6 +33,7 @@ timer_irq:
 
 	call update_bomber	
 	call handle_paddle_input
+	call update_bombs
 
 	popa
 	iret
