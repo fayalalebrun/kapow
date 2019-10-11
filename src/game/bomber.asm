@@ -2,12 +2,12 @@ init_bomber:
 	push bp
 	mov bp, sp
 
-	mov word [cs:bomber_speed], 0xF
-	mov ax, 320/2 - 32
-	shl ax, 4
+	mov word [cs:bomber_speed], bomber_initial_speed
+	mov ax, bomber_initial_x
+	shl ax, 4		; 4 fraction bits
 	mov [cs:bomber_x], ax
 
-	mov byte [cs:bomber_state], 1
+	mov byte [cs:bomber_state], bomber_initial_state
 
 	mov sp, bp
 	pop bp

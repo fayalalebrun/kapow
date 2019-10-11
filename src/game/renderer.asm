@@ -26,14 +26,15 @@ render:
 
 	mov  bx, [cs:bomber_x]	;x
 	shr bx, 4		;4 fraction bits
-	mov ax, 11 		;y
+	mov ax, bomber_initial_y 		;y
 	mov ch, 32		;width
 	mov cl, 32		;height
 	mov dx, bomber_loc	;sprite location
 	call draw_sprite
 
-	mov ax, 130 		;y
-	mov bx, 32		;x
+	mov ax, paddle_initial_y 		;y
+	mov bx, [cs:paddle_x]		;x
+	shr bx, 4			;4 fraction bits
 	mov ch, 32		;width
 	mov cl, 8		;height
 	mov dx, paddle_loc	;sprite location
