@@ -8,7 +8,7 @@ render:
  	mov ax, 0x0795
  	call draw_background
 	
-
+	call render_paddles
 
 	call render_bombs
 	
@@ -20,7 +20,33 @@ render:
 	mov dx, bomber_loc	;sprite location
 	call draw_sprite
 
-	mov ax, paddle_initial_y 		;y
+
+
+
+	
+	call copy_buffer
+	
+	mov sp, bp
+	pop bp
+	ret
+
+render_paddles:
+	push bp
+	mov bp, sp
+	
+	mov ax, paddle_initial_y
+
+	
+	xor cx,cx
+	mov cl, [cs:paddle_n]
+	
+
+	
+renp_l:
+
+	push ax
+	push cx
+	
 	mov bx, [cs:paddle_x]		;x
 	shr bx, 4			;4 fraction bits
 	mov ch, 32		;width
@@ -28,9 +54,13 @@ render:
 	mov dx, paddle_loc	;sprite location
 	call draw_sprite
 
+	pop cx
+	pop ax
+	add ax, paddle_separation
+	
+	loop renp_l
 
 	
-	call copy_buffer
 	
 	mov sp, bp
 	pop bp

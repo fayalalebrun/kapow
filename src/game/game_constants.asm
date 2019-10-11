@@ -7,6 +7,8 @@
 %define paddle_initial_y 200-50
 %define paddle_initial_x 320/2 - 16
 %define paddle_speed 0x25
+%define paddle_initial_n 3
+%define paddle_separation 16	
 
 %define bomb_initial_speed 0x5
 %define number_of_bombs 6

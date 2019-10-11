@@ -16,9 +16,10 @@
 %define last_rand keystate+1		; 2 bytes
 
 %define paddle_x last_rand+2		; 2 bytes, fixed point integer with 4 bit fraction
+%define paddle_n paddle_x+2		; 1 byte
 
 
-%define bomb_speed paddle_x+2		; 2 bytes, fixed point integer with 4 bit fraction
+%define bomb_speed paddle_n+1		; 2 bytes, fixed point integer with 4 bit fraction
 %define bomb_state bomb_speed+2		; 7 elements, 1 byte per element
 %define bomb_x bomb_state+1*7	; 7 elements, 2 byte per element
 %define bomb_y bomb_x+2*7	; 7 elements, 2 bytes per element, fixed point with 4 bit fraction

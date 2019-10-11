@@ -6,6 +6,7 @@ init_paddle:
 	shl ax, 4
 	mov [cs:paddle_x], ax
 
+	mov byte [cs:paddle_n], paddle_initial_n
 	
 	mov sp, bp
 	pop bp
