@@ -192,4 +192,37 @@ draw_background:
 	mov sp, bp
 	pop bp
 	ret
+
+; Sets an index in a palette to a color
+; ah - index
+; bl - red (0-63)
+; bh - green (0-63)
+; cl - blue (0-63)
+set_palette_index:
+	push bp
+	mov bp, sp
+
+	mov al, 0xFF
+	mov dx, 0x3C6 		; PEL Mask Register
+	out dx, al		; Prepare VGA card for color change
+
+	mov al, ah
+	mov dx, 0x3C8		; PEL Address Write Mode Register
+	out dx, al		; Send what color index to write to
+
+	mov dx, 0x3C9		; PEL Data Register
+
+	mov al, bl
+	out dx, al
+
+	mov al, bh
+	out dx, al
+
+	mov al, cl
+	out dx, al
+
 	
+	
+	mov sp, bp
+	pop bp
+	ret
