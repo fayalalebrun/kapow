@@ -18,6 +18,8 @@ main:
 	call init_bomber
 	call init_paddle
 	call init_bombs
+	call init_score
+
 
 main_loop:	
 
@@ -67,5 +69,6 @@ keyboard_irq:
 %include "src/game/paddle.asm"
 %include "src/game/bombs.asm"	
 %include "src/game/collision_detection.asm"
+%include "src/game/score.asm"
 
 times 0xFFFF - ($-$$) db 0
