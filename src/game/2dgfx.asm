@@ -201,7 +201,7 @@ draw_background:
 set_palette_index:
 	push bp
 	mov bp, sp
-
+	
 	mov al, 0xFF
 	mov dx, 0x3C6 		; PEL Mask Register
 	out dx, al		; Prepare VGA card for color change
@@ -222,6 +222,43 @@ set_palette_index:
 	out dx, al
 
 	
+	
+	mov sp, bp
+	pop bp
+	ret
+
+
+; Sets up palette
+set_palette:
+	push bp
+	mov bp, sp
+	
+	mov di, 256
+
+stpll:
+	dec di
+
+	mov ax, sprite_seg
+	mov gs, ax
+	
+	mov ax, di
+	mov ah, al
+	push di
+	mov bx, di
+	add di, bx
+	add di, bx
+
+	mov bl, [gs:palette_loc+di]
+	inc di
+	mov bh, [gs:palette_loc+di]
+	inc di
+	mov cl, [gs:palette_loc+di]
+	call set_palette_index
+
+	pop di
+
+	cmp di, 0
+	jne stpll
 	
 	mov sp, bp
 	pop bp

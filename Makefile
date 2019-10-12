@@ -26,6 +26,12 @@ endef
 
 
 assets:
+	gcc -o out/extract_palette.o src/assets/extract_palette.c
+	$(CONV) -compress none assets/BOMBER.PCX out/assets/BOMBER.BMP
+	out/extract_palette.o out/assets/BOMBER.BMP out/assets/palette.bin
+	cat out/assets/palette.bin >> out/HD.img
+
+
 	gcc -o out/conv_asset.o src/assets/conv_asset.c
 	$(call add_asset,BOMB,16,32)
 	$(call add_asset,BOMB8,8,16)

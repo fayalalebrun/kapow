@@ -12,6 +12,8 @@ jmp short keyboard_irq
 
 main:
 
+	call set_palette
+	
 	call init_rand
 	call init_bomber
 	call init_paddle
@@ -22,9 +24,9 @@ main_loop:
 
 	call get_rand
 
-	
+
 	call render
-	
+
 
 	jmp main_loop
 
