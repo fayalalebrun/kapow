@@ -76,6 +76,17 @@ render_bombs:
 r_bl:
 	sub di, 2
 	push di
+
+	xor si, si
+	mov si, di
+	shr si, 1
+
+	xor ax, ax
+	mov al, [cs:bomb_state+si]
+
+	cmp al, 1
+	jne r_bs
+	
 	mov bx, 0
 	mov word ax, [cs:bomb_y+bx+di]
 	shr ax, 4
@@ -85,7 +96,8 @@ r_bl:
 	mov cl, 16		;height
 	mov dx, bomb8_loc	;sprite location
 	call draw_sprite
-	
+
+r_bs:	
 
 	pop di
 

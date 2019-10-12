@@ -75,6 +75,9 @@ upd_bl:
 	mov dx, [cs:bomber_x]
 	shr dx, 4
 	mov [cs:bomb_x+di], dx
+	mov si, di
+	shr si, 1 		;Divide by 2
+	mov byte [cs:bomb_state+si], 1
 	
 upd_blc:
 	
