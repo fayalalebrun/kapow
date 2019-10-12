@@ -21,7 +21,10 @@ render:
 	call draw_sprite
 
 
-
+	mov ax, 0
+	mov bx, 0
+	mov cx, score_bcd
+	call draw_score
 
 	
 	call copy_buffer
@@ -97,6 +100,7 @@ r_bl:
 	mov dx, bomb8_loc	;sprite location
 	call draw_sprite
 
+
 r_bs:	
 
 	pop di
@@ -140,3 +144,4 @@ vt_clr:
 	mov sp, bp
 	pop bp
 	ret
+

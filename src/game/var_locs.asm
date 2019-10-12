@@ -6,9 +6,10 @@
 %define bomber_dist bomber_state+1	; 2 byte, how much the bomber will travel until it changes direction, fixed point integer with 4 bit fraction
 
 
-%define score bomber_dist+2		; 2 bytes
+%define score bomber_dist+2		; 4 bytes
+%define score_bcd score+4		; score in BCD format, 8 digits, starts from LSD
 
-%define keystate score+2 	; 1 byte
+%define keystate score_bcd+8 	; 1 byte
 				; bit 0 is left arrow pressed
 				; bit 1 is right arrow pressed
 				; bit 2 is enter key pressed

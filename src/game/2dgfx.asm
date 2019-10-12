@@ -263,3 +263,53 @@ stpll:
 	mov sp, bp
 	pop bp
 	ret
+
+; Draws 8 byte BCD score on the screen
+; ax - y
+; bx - x
+; cx - base address to BCD variable
+draw_score:
+	push bp
+	mov bp, sp
+
+	mov di, 8
+
+d_sc_l:
+	dec di
+
+	
+	
+	push ax
+	xor ax, ax
+
+	push bx
+	mov bx, cx
+	mov al, [cs:bx+di]
+	pop bx
+	mov dx, char_spr_size
+	mul dx
+	mov dx, ax
+	pop ax
+
+	push ax
+	push bx
+	push cx
+
+	mov ch, char_length
+	mov cl, char_length
+	add dx, chars_loc
+	call draw_sprite
+	
+	
+	pop cx
+	pop bx
+	pop ax
+	
+	add bx, 12
+	
+	cmp di, 0
+	jne d_sc_l
+	
+	mov sp, bp
+	pop bp
+	ret

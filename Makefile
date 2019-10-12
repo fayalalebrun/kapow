@@ -37,6 +37,16 @@ assets:
 	$(call add_asset,BOMB8S,8,8)
 	$(call add_asset,BOMBER,32,32)
 	$(call add_asset,PADDLE,32,8)
+	$(call add_asset,CHAR0,12,12)
+	$(call add_asset,CHAR1,12,12)
+	$(call add_asset,CHAR2,12,12)
+	$(call add_asset,CHAR3,12,12)
+	$(call add_asset,CHAR4,12,12)
+	$(call add_asset,CHAR5,12,12)
+	$(call add_asset,CHAR6,12,12)
+	$(call add_asset,CHAR7,12,12)
+	$(call add_asset,CHAR8,12,12)
+	$(call add_asset,CHAR9,12,12)
 
 boot:
 	$(NASM) -f elf32 -F dwarf -g src/bootup/booter.asm -o out/booter.o
