@@ -67,7 +67,7 @@ upd_bl:
 	mov ax, [cs:bomb_y+di]
 	add ax, [cs:bomb_speed]
 	mov [cs:bomb_y+di], ax
-	cmp ax, 200-16 << 4
+	cmp ax, 200-bomb_height << 4
 	jbe upd_blc
 
 	mov dx, bombs_initial_y<<4

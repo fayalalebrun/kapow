@@ -20,7 +20,7 @@ main:
 	call init_bombs
 
 main_loop:	
-	
+
 
 	call get_rand
 
@@ -35,7 +35,8 @@ timer_irq:
 
 	call update_bomber	
 	call handle_paddle_input
-	call update_bombs
+	call update_bombs	
+	call handle_paddle_bombs_collision
 
 	popa
 	iret
