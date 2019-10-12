@@ -83,7 +83,13 @@ hpbc_l:
 	jne hpbc_c
 	push di
 	shr di, 1		;divide di by 2
+	mov dl, [cs:bomb_state+di]
 	mov byte [cs:bomb_state+di], 0
+	cmp dl, 0
+	je hpbc_as
+	mov ax, 50
+	call add_score
+hpbc_as:	
 	pop di
 	
 hpbc_c:	

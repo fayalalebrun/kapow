@@ -7,9 +7,10 @@
 
 
 %define score bomber_dist+2		; 4 bytes
-%define score_bcd score+4		; score in BCD format, 8 digits, starts from LSD
+%define score_bcd score+4		; score in BCD format, 8 bytes, starts from LSD
+%define stage score_bcd+8		; 1 byte, 0 = no stage 1 = playing 2 = top score screen
 
-%define keystate score_bcd+8 	; 1 byte
+%define keystate stage+1 	; 1 byte
 				; bit 0 is left arrow pressed
 				; bit 1 is right arrow pressed
 				; bit 2 is enter key pressed

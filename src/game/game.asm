@@ -12,22 +12,16 @@ jmp short keyboard_irq
 
 main:
 
-	call set_palette
 	
-	call init_rand
-	call init_bomber
-	call init_paddle
-	call init_bombs
-	call init_score
-
+	
+	call play_scr_init
 
 main_loop:	
 
 
 	call get_rand
 
-
-	call render
+	
 
 
 	jmp main_loop
@@ -35,11 +29,8 @@ main_loop:
 timer_irq:
 	pusha
 
-	call update_bomber	
-	call handle_paddle_input
-	call update_bombs	
-	call handle_paddle_bombs_collision
-
+	call update_stage
+	
 	popa
 	iret
 
@@ -70,5 +61,6 @@ keyboard_irq:
 %include "src/game/bombs.asm"	
 %include "src/game/collision_detection.asm"
 %include "src/game/score.asm"
+%include "src/game/stage.asm"	
 
 times 0xFFFF - ($-$$) db 0

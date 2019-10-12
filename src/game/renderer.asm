@@ -1,5 +1,5 @@
 	
-render:
+render_play_scr:
 	push bp
 	mov bp, sp
 
