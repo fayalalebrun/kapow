@@ -13,8 +13,9 @@ jmp short keyboard_irq
 main:
 
 	
-	
+	call init_top_score
 	call play_scr_init
+	
 
 main_loop:	
 

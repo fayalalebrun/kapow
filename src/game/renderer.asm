@@ -21,9 +21,14 @@ render_play_scr:
 	call draw_sprite
 
 
-	mov ax, 0
+	mov ax, 2
 	mov bx, 0
 	mov cx, score_bcd
+	call draw_score
+
+	mov ax, 2
+	mov bx, 220
+	mov cx, top_score_bcd
 	call draw_score
 
 	
