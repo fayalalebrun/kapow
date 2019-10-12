@@ -31,6 +31,12 @@ render_play_scr:
 	mov cx, top_score_bcd
 	call draw_score
 
+	mov ax, 1
+	mov bx, 175
+	mov ch, 40
+	mov cl, 12
+	mov dx, topsc_loc
+	call draw_sprite
 	
 	call copy_buffer
 	

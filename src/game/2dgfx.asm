@@ -264,6 +264,49 @@ stpll:
 	pop bp
 	ret
 
+
+; Sets up palette but inverts the colors
+set_palette_inverted:
+	push bp
+	mov bp, sp
+	
+	mov di, 256
+
+stplli:
+	dec di
+
+	mov ax, sprite_seg
+	mov gs, ax
+	
+	mov ax, di
+	mov ah, al
+	push di
+	mov bx, di
+	add di, bx
+	add di, bx
+
+	
+	mov bl, [gs:palette_loc+di]
+	inc di
+	mov bh, [gs:palette_loc+di]
+	inc di
+	mov cl, [gs:palette_loc+di]
+
+	not bl
+	not bh
+	not cl
+	call set_palette_index
+
+	pop di
+
+	cmp di, 0
+	jne stplli
+	
+	mov sp, bp
+	pop bp
+	ret
+
+	
 ; Draws 8 byte BCD score on the screen
 ; ax - y
 ; bx - x

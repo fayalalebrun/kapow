@@ -15,6 +15,7 @@ main:
 	
 	call init_top_score
 	call play_scr_init
+	call tran_scr_init
 	
 
 main_loop:	

@@ -10,10 +10,11 @@
 %define score_bcd score+4		; score in BCD format, 8 bytes, starts from LSD
 %define top_score score_bcd+8	
 %define top_score_bcd top_score+4
-%define stage top_score_bcd+8		; 1 byte, 0 = no stage 1 = playing 2 = top score screen
+%define stage top_score_bcd+8		; 1 byte, 0 = no stage 1 = playing 2 = top score screen 3 = transition
 %define stage_timer stage+1		; 2 bytes, used to time stages
-
-%define keystate stage_timer+2 	; 1 byte
+%define stage_vars stage_timer+2	; 2 bytes, misc stage variables
+	
+%define keystate stage_vars+2 	; 1 byte
 				; bit 0 is left arrow pressed
 				; bit 1 is right arrow pressed
 				; bit 2 is enter key pressed

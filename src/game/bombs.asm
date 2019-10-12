@@ -87,3 +87,29 @@ upd_blc:
 	mov sp, bp
 	pop bp
 	ret
+	
+; Returns index of bomb with highest y
+find_lowest_bomb:
+	push bp
+	mov bp, sp
+	mov di, number_of_bombs*2
+	mov si, 0
+
+fi_lb_l:
+	sub di, 2
+
+	mov ax, [cs:bomb_y+di]
+	cmp ax, [cs:bomb_y+si]
+	jbe fi_lb_c
+	mov si, di
+	
+fi_lb_c:	
+	cmp di, 0
+	jne fi_lb_l
+	
+	mov ax, si
+	shr ax, 1 		;Divide ax by 2
+	
+	mov sp, bp
+	pop bp
+	ret
