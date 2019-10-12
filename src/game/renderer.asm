@@ -5,7 +5,7 @@ render:
 
 
 
- 	mov ax, 0x0795
+ 	mov ax, 0x0702
  	call draw_background
 	
 	call render_paddles
@@ -49,8 +49,8 @@ renp_l:
 	
 	mov bx, [cs:paddle_x]		;x
 	shr bx, 4			;4 fraction bits
-	mov ch, 32		;width
-	mov cl, 8		;height
+	mov ch, paddle_width		;width
+	mov cl, paddle_height		;height
 	mov dx, paddle_loc	;sprite location
 	call draw_sprite
 
@@ -92,8 +92,8 @@ r_bl:
 	shr ax, 4
 	mov word cx, [cs:bomb_x+bx+di]
 	mov bx, cx
-	mov ch, 8		;width
-	mov cl, 16		;height
+	mov ch, bomb_width		;width
+	mov cl, bomb_height		;height
 	mov dx, bomb8_loc	;sprite location
 	call draw_sprite
 

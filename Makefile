@@ -34,7 +34,7 @@ assets:
 
 	gcc -o out/conv_asset.o src/assets/conv_asset.c
 	$(call add_asset,BOMB,16,32)
-	$(call add_asset,BOMB8,8,16)
+	$(call add_asset,BOMB8S,8,8)
 	$(call add_asset,BOMBER,32,32)
 	$(call add_asset,PADDLE,32,8)
 
