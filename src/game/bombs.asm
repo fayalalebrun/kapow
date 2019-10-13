@@ -54,13 +54,16 @@ init_l3:
 	pop bp
 	ret
 
+; updates all the bombs on the screen
+; ax - whether the bombs should be regenerated after touching the ground
 update_bombs:
 	push bp
 	mov bp, sp
 	
 	mov di, number_of_bombs*2
 	mov bx, 0
-
+	
+	push ax
 upd_bl:
 	sub di, 2
 
@@ -85,11 +88,14 @@ upd_bl:
 	call tran_scr_init 	; The bomb has reached the ground, time to reduce number of paddles
 	pop di
 upd_bc1:	
-	
+	pop ax
+	push ax
+	cmp ax, 1
+	jne upd_blc
 	mov byte [cs:bomb_state+si], 1
 
 upd_blc:
-	
+
 	cmp di, 0
 	jne upd_bl
 	
@@ -120,5 +126,30 @@ fi_lb_c:
 	shr ax, 1 		;Divide ax by 2
 	
 	mov sp, bp
+	pop bp
+	ret
+
+; Returns true if any bomb is active
+check_if_any_bomb_active:
+	push bp
+	mov bp, sp
+
+	mov di, number_of_bombs
+	xor ax, ax
+
+c_i_al:
+	dec di
+
+	mov al, [cs:bomb_state+di]
+
+	cmp al, 1
+	je c_i_d
+	
+	cmp di, 0
+	jne c_i_al
+
+
+
+c_i_d:	mov sp, bp
 	pop bp
 	ret

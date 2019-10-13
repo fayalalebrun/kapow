@@ -12,6 +12,8 @@ play_scr_init:
 
 	mov word [cs:stage_timer], difficulty_inc_interval
 
+	mov byte [cs:stage_vars], 1
+
 	mov byte [cs:stage], 1
 	
 	mov sp, bp
@@ -82,6 +84,8 @@ tran_scr_loop:
 	je tr_s_c3		;The player has run out of paddles
 	call set_palette	;reset the palette
 	mov byte [cs:stage], 1	;set the stage to playing
+	mov byte [cs:stage_vars], 1 ;The playing stage should not be waiting for bombs to explode
+	mov word [cs:stage_timer], difficulty_inc_interval
 	jmp tsc_e1
 tr_s_c3:
 	call score_scr_init
@@ -137,12 +141,32 @@ play_scr_loop:
 	jne p_sl_c
 	mov word [cs:stage_timer], difficulty_inc_interval
 	call increase_difficulty
+	mov byte [cs:stage_vars], 0 ;This means the game is waiting for all bombs to be done with
 p_sl_c:	
 	call handle_paddle_input
-	call update_bomber	
-	call update_bombs	
+
+	mov al, [cs:stage_vars]
+	cmp al, 0
+	je p_sl_sk
+	call update_bomber
+p_sl_sk:	
+
+	xor ax, ax
+	mov al, [cs:stage_vars]
+	push ax
+	cmp al, 0
+	jne p_sl_c1
+	call check_if_any_bomb_active
+	cmp al, 1
+	je p_sl_c1
+	mov byte[cs:stage_vars], 1
+p_sl_c1:
+	pop ax
+	
+	call update_bombs
 	call handle_paddle_bombs_collision
 
+	
 
 	call render_play_scr
 
@@ -173,4 +197,4 @@ upd_s2:
 upd_d:	
 	mov sp, bp
 	pop bp
-p	ret
+	ret
