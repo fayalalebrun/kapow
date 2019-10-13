@@ -18,3 +18,7 @@
 %define bombs_initial_y 36
 %define bomb_width 8
 %define bomb_height 8
+
+%define difficulty_inc_interval 500
+%define bomb_speed_inc 0x4
+%define bomber_speed_inc 0x8

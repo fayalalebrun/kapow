@@ -10,6 +10,8 @@ play_scr_init:
 	call init_bombs
 	call init_score
 
+	mov word [cs:stage_timer], difficulty_inc_interval
+
 	mov byte [cs:stage], 1
 	
 	mov sp, bp
@@ -129,6 +131,13 @@ play_scr_loop:
 	push bp
 	mov bp, sp
 
+	dec word [cs:stage_timer]
+	mov bx, [cs:stage_timer]
+	cmp bx, 0
+	jne p_sl_c
+	mov word [cs:stage_timer], difficulty_inc_interval
+	call increase_difficulty
+p_sl_c:	
 	call handle_paddle_input
 	call update_bomber	
 	call update_bombs	

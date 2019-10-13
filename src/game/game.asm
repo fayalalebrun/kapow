@@ -64,6 +64,7 @@ keyboard_irq:
 %include "src/game/bombs.asm"	
 %include "src/game/collision_detection.asm"
 %include "src/game/score.asm"
-%include "src/game/stage.asm"	
+%include "src/game/stage.asm"
+%include "src/game/difficulty.asm"	
 
 times 0xFFFF - ($-$$) db 0
