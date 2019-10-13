@@ -37,6 +37,34 @@ tran_scr_init:
 	pop bp
 	ret
 
+score_scr_init:
+	push bp
+	mov bp, sp
+
+	call set_palette
+	call set_top_score
+
+	mov byte [cs:stage], 2
+	
+	mov sp, bp
+	pop bp
+	ret
+
+score_scr_loop:
+	push bp
+	mov bp, sp
+
+	mov bl, [cs:keystate]
+	test bl, 0x4
+	jz cont
+	call play_scr_init
+cont:	
+	call render_play_scr
+	
+	mov sp, bp
+	pop bp
+	ret
+
 tran_scr_loop:
 	push bp
 	mov bp, sp
@@ -46,10 +74,12 @@ tran_scr_loop:
 	mov bx, [cs:stage_timer]
 	cmp bx, 0
 	jne tr_s_c2
-	call play_scr_init
+	dec byte [cs:paddle_n]
+	call set_palette	;reset the palette
+	mov byte [cs:stage], 1	;set the stage to playing
 	jmp tsc_e1
 tr_s_c2:	
-	test bx, 0xF
+	test bx, 0xF		; This should triger the function about 1/16th of the time
 	jne tsc_e
 
 	xor bx, bx
@@ -57,14 +87,14 @@ tr_s_c2:
 	cmp bl, number_of_bombs
 	jb tr_s_c1
 	mov bl, 0
-	mov [cs:stage_vars+1], bl
+	mov [cs:stage_vars+1], bl ; Here is stored the index of the next bomb that we want to remove
 tr_s_c1:	
 	mov di, bx
 	mov byte [cs:bomb_state+di], 0
 
 	inc byte [cs:stage_vars+1]
 	
-	mov bl, [cs:stage_vars]
+	mov bl, [cs:stage_vars]	;Here we store whether the palette was inverted or normal on the last loop
 	cmp bl, 0
 	je tsc_c
 
@@ -118,6 +148,7 @@ update_stage:
 upd_s1:
 	cmp bl, 2
 	jne upd_s2
+	call score_scr_loop
 	jmp upd_d
 
 upd_s2:
@@ -127,4 +158,4 @@ upd_s2:
 upd_d:	
 	mov sp, bp
 	pop bp
-	ret
+p	ret
