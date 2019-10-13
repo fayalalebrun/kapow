@@ -140,7 +140,7 @@ play_scr_loop:
 	cmp bx, 0
 	jne p_sl_c
 	mov word [cs:stage_timer], difficulty_inc_interval
-	call increase_difficulty
+	
 	mov byte [cs:stage_vars], 0 ;This means the game is waiting for all bombs to be done with
 p_sl_c:	
 	call handle_paddle_input
@@ -160,6 +160,7 @@ p_sl_sk:
 	cmp al, 1
 	je p_sl_c1
 	mov byte[cs:stage_vars], 1
+	call increase_difficulty
 p_sl_c1:
 	pop ax
 	
