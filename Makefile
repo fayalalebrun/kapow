@@ -63,9 +63,9 @@ game:
 
 
 qemu:	all
-	$(QEMU) -hda out/HD.img -enable-kvm
+	$(QEMU) -hda out/HD.img -enable-kvm -soundhw pcspk
 
 gdb:	all
-	$(QEMU) -S -s -hda out/HD.img -enable-kvm &
+	$(QEMU) -S -s -hda out/HD.img -enable-kvm -soundhw pcspk &
 	sleep 1
 	$(GDB) -ix gdbinit_real_mode.txt -ex 'target remote localhost:1234' -ex 'set architecture i8086'  -ex 'file out/game.elf' -ex 'set step-mode'
