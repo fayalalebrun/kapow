@@ -53,7 +53,9 @@ render_paddles:
 	
 	xor cx,cx
 	mov cl, [cs:paddle_n]
-	
+
+	cmp cl, 0
+	je renp_e
 
 	
 renp_l:
@@ -75,7 +77,7 @@ renp_l:
 	loop renp_l
 
 	
-	
+renp_e:	
 	mov sp, bp
 	pop bp
 	ret

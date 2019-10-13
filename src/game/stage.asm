@@ -75,8 +75,14 @@ tran_scr_loop:
 	cmp bx, 0
 	jne tr_s_c2
 	dec byte [cs:paddle_n]
+	mov cl, [cs:paddle_n]
+	cmp cl, 0
+	je tr_s_c3		;The player has run out of paddles
 	call set_palette	;reset the palette
 	mov byte [cs:stage], 1	;set the stage to playing
+	jmp tsc_e1
+tr_s_c3:
+	call score_scr_init
 	jmp tsc_e1
 tr_s_c2:	
 	test bx, 0xF		; This should triger the function about 1/16th of the time

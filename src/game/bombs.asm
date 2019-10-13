@@ -77,8 +77,17 @@ upd_bl:
 	mov [cs:bomb_x+di], dx
 	mov si, di
 	shr si, 1 		;Divide by 2
-	mov byte [cs:bomb_state+si], 1
+
+	mov bl, [cs:bomb_state+si]
+	cmp bl, 0
+	je upd_bc1
+	push di
+	call tran_scr_init 	; The bomb has reached the ground, time to reduce number of paddles
+	pop di
+upd_bc1:	
 	
+	mov byte [cs:bomb_state+si], 1
+
 upd_blc:
 	
 	cmp di, 0
