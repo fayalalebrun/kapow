@@ -69,7 +69,31 @@ a_s_lo:
 	cmp di, 8
 	jne a_s_lo
 
-a_s_d:	mov sp, bp
+a_s_d:
+	call check_add_paddle
+	mov sp, bp
+	pop bp
+	ret
+
+; If the score is divisible by new_paddle_score, then add a paddle
+check_add_paddle:
+	push bp
+	mov bp, sp
+
+
+	mov ax, [cs:score]
+	mov bx, new_paddle_score
+	xor dx, dx
+	div bx
+
+	cmp dx, 0
+	jne cap_e
+	mov al, [cs:paddle_n]
+	cmp al, 3
+	jae cap_e
+	inc byte [cs:paddle_n]
+
+cap_e:	mov sp, bp
 	pop bp
 	ret
 

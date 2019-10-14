@@ -22,3 +22,4 @@
 %define difficulty_inc_interval 1000
 %define bomb_speed_inc 0x4
 %define bomber_speed_inc 0x8
+%define new_paddle_score 10000
