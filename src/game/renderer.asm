@@ -7,6 +7,7 @@ render_play_scr:
 
  	mov ax, 0x0702
  	call draw_background
+
 	
 	call render_paddles
 
@@ -19,6 +20,9 @@ render_play_scr:
 	mov cl, 32		;height
 	mov dx, bomber_loc	;sprite location
 	call draw_sprite
+
+
+	call render_explosions
 
 
 	mov ax, 2
@@ -158,3 +162,58 @@ vt_clr:
 	pop bp
 	ret
 
+
+render_explosions:
+	push bp
+	mov bp, sp
+
+	xor ax, ax
+	mov al, [cs:explosion_start_index]
+	xor di, di
+	mov di, ax 		; di contains start index
+
+	xor cx, cx
+	mov cl, [cs:explosion_end_index] ; cx contains end index
+
+
+r_ex_l:
+	cmp di, cx
+	je r_ex_e
+
+	
+	
+	push cx
+	push di
+
+	shl di, 1		; Multiply di by 2
+
+	mov dx, bomb_width*bomb_height
+	mov ax, [cs:explosion_state+di]
+	shr ax, 8
+	mul dx
+	mov dx, expls_loc
+	add dx, ax
+
+	mov ax, [cs:explosion_y+di]
+	shr ax, 4
+	mov bx, [cs:explosion_x+di]
+	mov ch, bomb_width
+	mov cl, bomb_height
+	call draw_sprite
+
+	pop di
+	pop cx
+
+	
+	inc di
+	
+	cmp di, number_of_explosions
+	jne r_ex_l
+	mov di, 0		; di has reached the end of the array, it has to loop around
+	jmp r_ex_l
+	
+	
+r_ex_e:
+	mov sp, bp
+	pop bp
+	ret

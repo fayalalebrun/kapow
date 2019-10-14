@@ -82,11 +82,15 @@ hpbc_l:
 	cmp ax, 1
 	jne hpbc_c
 	push di
+	mov ax, di
+	
 	shr di, 1		;divide di by 2
 	mov dl, [cs:bomb_state+di]
 	mov byte [cs:bomb_state+di], 0
 	cmp dl, 0
 	je hpbc_as
+	mov ax, di
+	call explode_bomb
 	mov ax, 50
 	call add_score
 hpbc_as:	

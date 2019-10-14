@@ -23,3 +23,7 @@
 %define bomb_speed_inc 0x4
 %define bomber_speed_inc 0x8
 %define new_paddle_score 10000
+
+%define number_of_explosions 64
+%define explosion_frames 4
+%define explosion_speed 0xF	

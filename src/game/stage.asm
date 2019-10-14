@@ -178,6 +178,8 @@ p_sl_c1:
 update_stage:
 	push bp
 	mov bp, sp
+
+	call update_explosion
 	
 	mov bl, [cs:stage]
 

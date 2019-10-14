@@ -26,6 +26,12 @@
 
 
 %define bomb_speed paddle_n+1		; 2 bytes, fixed point integer with 4 bit fraction
-%define bomb_state bomb_speed+2		; 7 elements, 1 byte per element
-%define bomb_x bomb_state+1*7	; 7 elements, 2 byte per element
-%define bomb_y bomb_x+2*7	; 7 elements, 2 bytes per element, fixed point with 4 bit fraction
+%define bomb_state bomb_speed+2		; n of bombs elements, 1 byte per element
+%define bomb_x bomb_state+1*number_of_bombs	; n of bombs elements, 2 byte per element
+%define bomb_y bomb_x+2*7	; n of bombs elements, 2 bytes per element, fixed point with 4 bit fraction
+
+%define explosion_state bomb_y+2*number_of_bombs ;n of explosions elements, 2 bytes per element, fixed point with 8 bit fraction
+%define explosion_x explosion_state+2*number_of_explosions ;n of explosions elements, 2 bytes
+%define explosion_y explosion_x+2*number_of_explosions	   ;n of explosions elements, 2 bytes
+%define explosion_start_index explosion_y+2*number_of_explosions ; 1 byte, contains the index of the first explosion that is still active
+%define explosion_end_index explosion_start_index+1		 ; 1 byte, contains the index of the position after the last one that should be rendered

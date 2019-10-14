@@ -16,14 +16,18 @@ main:
 	call init_top_score
 	call play_scr_init
 	call score_scr_init
-	
+	call init_explosion
 
+	
 main_loop:	
 
-
+	
 	call get_rand
 
-	
+
+
+
+
 
 
 	jmp main_loop
@@ -64,6 +68,7 @@ keyboard_irq:
 %include "src/game/collision_detection.asm"
 %include "src/game/score.asm"
 %include "src/game/stage.asm"
-%include "src/game/difficulty.asm"	
+%include "src/game/difficulty.asm"
+%include "src/game/explosion.asm"	
 
 times 0xFFFF - ($-$$) db 0
