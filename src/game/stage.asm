@@ -103,6 +103,8 @@ tr_s_c2:
 tr_s_c1:	
 	mov di, bx
 	mov byte [cs:bomb_state+di], 0
+	mov ax, di
+	call explode_bomb
 
 	inc byte [cs:stage_vars+1]
 	
