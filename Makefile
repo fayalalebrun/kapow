@@ -26,9 +26,10 @@ endef
 
 
 assets:
+	mkdir -p out/assets
 	gcc -o out/extract_palette.o src/assets/extract_palette.c
-	$(CONV) -compress none assets/BOMBER.PCX out/assets/BOMBER.BMP
-	out/extract_palette.o out/assets/BOMBER.BMP out/assets/palette.bin
+	$(CONV) -compress none assets/PALETTE.PCX out/assets/PALETTE.bmp
+	out/extract_palette.o out/assets/PALETTE.bmp out/assets/palette.bin
 	cat out/assets/palette.bin >> out/HD.img
 
 
