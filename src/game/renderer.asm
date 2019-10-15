@@ -4,14 +4,21 @@ render_play_scr:
 	mov bp, sp
 
 
-
- 	mov ax, 0x0702
+	
+ 	mov ax, 0x1B13
  	call draw_background
+
+	mov bx, 5
+	mov ax, 11
+	mov ch, 100
+	mov cl, 32
+	mov dx, chalk_loc
+	call draw_sprite
 
 	
 	call render_paddles
 
-	call render_bombs
+
 	
 	mov  bx, [cs:bomber_x]	;x
 	shr bx, 4		;4 fraction bits
@@ -21,12 +28,13 @@ render_play_scr:
 	mov dx, bomber_loc	;sprite location
 	call draw_sprite
 
+	call render_bombs
 
 	call render_explosions
 
 
-	mov ax, 2
-	mov bx, 0
+	mov ax, 1
+	mov bx, 2
 	mov cx, score_bcd
 	call draw_score
 
@@ -41,6 +49,18 @@ render_play_scr:
 	mov cl, 12
 	mov dx, topsc_loc
 	call draw_sprite
+
+	mov al, [cs:stage]
+	cmp al, 2
+	jne rndp_s
+	
+	mov bx, 112
+	mov ax, 90
+	mov ch, 96
+	mov cl, 20
+	mov dx, enter_loc
+	call draw_sprite
+rndp_s:	
 	
 	call copy_buffer
 	

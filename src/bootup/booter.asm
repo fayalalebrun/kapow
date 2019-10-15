@@ -1,5 +1,5 @@
 %define n_frequence 16000
-%define PIT0_reload 1193180/n_frequence
+%define PIT0_reload (0x1234DC/n_frequence) & 0xfffe
 	
 %define game_start 0x1000	
 %define asset_storage 0x4000	
@@ -37,7 +37,7 @@ start:
 	mov ax, asset_storage
 	mov es, ax
 	mov ah, 0x2
-	mov al, 64
+	mov al, 128
 	mov ch, 0
 	mov dh, 2
 	mov cl, 4

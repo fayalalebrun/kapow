@@ -64,6 +64,7 @@ score_scr_loop:
 	call play_scr_init
 cont:	
 	call render_play_scr
+
 	
 	mov sp, bp
 	pop bp

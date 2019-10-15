@@ -14,4 +14,5 @@ bits 16
 %define chars_loc paddle_loc + 32 * 8 ; Position of first number character, 10 digits 12x12 each
 %define topsc_loc chars_loc + 12*12*10 ; 40*12
 %define expls_loc topsc_loc + 40*12     ; Position of first explosion frame, 4 frames 8x8 each
-	
+%define chalk_loc expls_loc + explosion_frames*8*8 ;100*32
+%define enter_loc chalk_loc + 100*32		   ; 96 * 20

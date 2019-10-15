@@ -53,8 +53,8 @@ assets:
 	$(call add_asset,EXP2,8,8)
 	$(call add_asset,EXP3,8,8)
 	$(call add_asset,EXP4,8,8)
-
-
+	$(call add_asset,CHALKBOA,100,32)
+	$(call add_asset,ENTER,96,20)
 boot:
 	$(NASM) -f elf32 -F dwarf -g src/bootup/booter.asm -o out/booter.o
 	$(LD) -T src/bootup/booter_link.ld -m elf_i386  out/booter.o -o out/booter.elf
