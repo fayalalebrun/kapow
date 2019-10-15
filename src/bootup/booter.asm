@@ -1,4 +1,4 @@
-%define n_frequence 16000
+%define n_frequence 100
 %define PIT0_reload (0x1234DC/n_frequence) & 0xfffe
 	
 %define game_start 0x1000	

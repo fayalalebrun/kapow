@@ -93,6 +93,7 @@ hpbc_l:
 	call explode_bomb
 	mov ax, 50
 	call add_score
+	call play_rand_note
 hpbc_as:	
 	pop di
 	

@@ -29,3 +29,4 @@
 %define explosion_speed 0xF	
 
 
+%define note_length 5

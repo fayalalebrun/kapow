@@ -1,3 +1,5 @@
+
+
 play_scr_init:
 	push bp
 	mov bp, sp
@@ -24,6 +26,10 @@ tran_scr_init:
 	push bp
 	mov bp, sp
 
+	mov ax, 1193180/30
+	mov bx, 150
+	call play_sound
+	
 	call set_palette
 
 	mov byte [cs:stage_vars], 0

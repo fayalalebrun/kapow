@@ -12,14 +12,18 @@ jmp short keyboard_irq
 
 main:
 
-	
+	cli
 	call init_top_score
 	call play_scr_init
 	call score_scr_init
 	call init_explosion
+	call init_sound
 
-	mov word [cs:tirq_timer], 0
 
+
+
+
+	sti
 	
 main_loop:	
 
@@ -31,16 +35,10 @@ main_loop:
 timer_irq:
 	pusha
 
-	mov ax, [cs:tirq_timer]
-	inc ax
-	cmp ax, 50
-	jne tirq_e
+
+	call sound_loop
+	
 	call update_stage
-	mov ax, 0
-	
-	
-tirq_e:
-	mov [cs:tirq_timer], ax
 	
 	popa
 	iret
@@ -74,6 +72,7 @@ keyboard_irq:
 %include "src/game/score.asm"
 %include "src/game/stage.asm"
 %include "src/game/difficulty.asm"
-%include "src/game/explosion.asm"	
+%include "src/game/explosion.asm"
+%include "src/game/sound.asm"	
 
 times 0xFFFF - ($-$$) db 0
