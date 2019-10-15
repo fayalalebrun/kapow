@@ -178,15 +178,15 @@ draw_background:
 	mov ax, 0
 	mov bx, 0
 	mov cx, 320
-	mov dh, 40
+	mov dh, 43
 	call draw_rectl
 
 	pop ax
 	mov dl, al
-	mov ax, 40
+	mov ax, 43
 	mov bx, 0
 	mov cx, 320
-	mov dh, 160
+	mov dh, 157
 	call draw_rectl
 
 	mov sp, bp
