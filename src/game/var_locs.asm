@@ -35,3 +35,4 @@
 %define explosion_y explosion_x+2*number_of_explosions	   ;n of explosions elements, 2 bytes
 %define explosion_start_index explosion_y+2*number_of_explosions ; 1 byte, contains the index of the first explosion that is still active
 %define explosion_end_index explosion_start_index+1		 ; 1 byte, contains the index of the position after the last one that should be rendered
+%define tirq_timer explosion_end_index+1			 ; 2 bytes, counts number of cycles

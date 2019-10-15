@@ -18,16 +18,12 @@ main:
 	call score_scr_init
 	call init_explosion
 
+	mov word [cs:tirq_timer], 0
+
 	
 main_loop:	
 
-	
-	call get_rand
-
-
-
-
-
+	hlt
 
 
 	jmp main_loop
@@ -35,7 +31,16 @@ main_loop:
 timer_irq:
 	pusha
 
+	mov ax, [cs:tirq_timer]
+	inc ax
+	cmp ax, 50
+	jne tirq_e
 	call update_stage
+	mov ax, 0
+	
+	
+tirq_e:
+	mov [cs:tirq_timer], ax
 	
 	popa
 	iret

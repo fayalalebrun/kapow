@@ -1,3 +1,6 @@
+%define n_frequence 16000
+%define PIT0_reload 1193180/n_frequence
+	
 %define game_start 0x1000	
 %define asset_storage 0x4000	
 %define game_main 0x0000
@@ -49,14 +52,14 @@ start:
 	mov al,00110100b                  ;channel 0, lobyte/hibyte, rate generator
 	out 0x43, al
  
-	mov ax,11930         ;ax = 16 bit reload value
+	mov ax,PIT0_reload	;         ;ax = 16 bit reload value
 	out 0x40,al                       ;Set low byte of PIT reload value
 	mov al,ah                         ;ax = high 8 bits of reload value
 	out 0x40,al                       ;Set high byte of PIT reload value
 
 	
 	mov ax, game_start	
-	mov [cs:0x9*4+2], ax	; move segment of game to IVT
+	mov [cs:0x9*4+2], ax	; move segment of game to IVTn/
 	mov ax, game_kirq
 	mov [cs:0x9*4], ax	; move address of irq to IVT
 
