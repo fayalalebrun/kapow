@@ -1,1 +1,13 @@
-Kaboom! remake in x86 assembler
+* Kapow
+[[https://media.giphy.com/media/gg2ntyu3R7a5IJhWBc/giphy.gif]]
+
+
+This a remake of Kaboom! (1981).
+
+The source code consists mainly of 16 bit x86 assembly language. It is made to be run in real-mode without another OS, and includes sprites, animations and basic PC speaker sound.
+
+** How to run
+
+#+BEGIN_SRC
+make qemu
+#+END_SRC
