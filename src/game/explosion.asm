@@ -73,7 +73,10 @@ explode_bomb:
 	inc bl
 	mov ax, 0
 	cmp bl, number_of_explosions
-	cmove bx, ax
+	
+	jnz expb1
+	mov bx, ax
+expb1:	
 	cmp bl, [cs:explosion_start_index]
 	pop bx
 	je expb_e

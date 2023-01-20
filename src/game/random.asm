@@ -29,8 +29,9 @@ get_rand:
 	mov dx, 0
 	cmp ax, 0xFFFF
 
-	cmove ax, dx
-	
+	jnz r1
+	mov ax, dx
+r1:	
 
 	mov [cs:last_rand], ax
 

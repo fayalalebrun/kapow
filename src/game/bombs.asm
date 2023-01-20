@@ -95,7 +95,7 @@ upd_bc1:
 	mov byte [cs:bomb_state+si], 1
 
 upd_blc:
-
+	
 	cmp di, 0
 	jne upd_bl
 	
@@ -114,7 +114,8 @@ fi_lb_l:
 	sub di, 2
 
 	mov ax, [cs:bomb_y+di]
-	cmp ax, [cs:bomb_y+si]
+	mov bx, [cs:bomb_y+si]
+	cmp ax, bx
 	jbe fi_lb_c
 	mov si, di
 	

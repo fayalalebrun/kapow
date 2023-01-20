@@ -1,4 +1,5 @@
 bits 16
+cpu 186
 section .text
 
 
@@ -20,9 +21,6 @@ main:
 	call init_sound
 
 
-
-
-
 	sti
 	
 main_loop:	
@@ -34,13 +32,14 @@ main_loop:
 
 timer_irq:
 	pusha
-
+	call update_keys_pressed
 
 	call sound_loop
 	
 	call update_stage
 	
 	popa
+
 	iret
 
 keyboard_irq:
@@ -48,12 +47,12 @@ keyboard_irq:
 
 	
 
-	call update_keys_pressed
+	;; call update_keys_pressed
 	
 
 	
-	mov al, 0x61
-	out 0x20, al 		;send EOI
+	;; mov al, 0x20
+	;; out 0x20, al 		;send EOI
 
 
 
@@ -75,4 +74,4 @@ keyboard_irq:
 %include "src/game/explosion.asm"
 %include "src/game/sound.asm"	
 
-times 0xFFFF - ($-$$) db 0
+times 0x4FFF - ($-$$) db 0x99

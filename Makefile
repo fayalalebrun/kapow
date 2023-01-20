@@ -11,17 +11,21 @@ QEMU = $(COMPPATH)/$(TARGET)qemu-system-i386
 NASM = $(COMPPATH)/$(TARGET)nasm
 OBJC = $(COMPPATH)/$(TARGET)objcopy
 CONV = $(COMPPATH)/$(TARGET)convert
+IMAGE = out/kapow.img
 
 .PHONY: assets write_assets
 
-all: boot game assets Makefile
+all: boot game assets pad Makefile
+
+pad:
+	dd if=/dev/zero of=$(IMAGE) bs=1 count=1 seek=163839
 
 
 define add_asset
 	$(CONV) -compress none assets/$(1).PCX out/assets/$(1).bmp
 	out/conv_asset.o out/assets/$(1).bmp out/assets/$(1).bin $(2) $(3)
-#	dd if=assets/$(1).bin of=out/HD.img bs=512 oflag=append conv=notrunc
-	cat out/assets/$(1).bin >> out/HD.img
+#	dd if=assets/$(1).bin of=$(IMAGE) bs=512 oflag=append conv=notrunc
+	cat out/assets/$(1).bin >> $(IMAGE)
 endef
 
 
@@ -30,7 +34,7 @@ assets:
 	gcc -o out/extract_palette.o src/assets/extract_palette.c
 	$(CONV) -compress none assets/PALETTE.PCX out/assets/PALETTE.bmp
 	out/extract_palette.o out/assets/PALETTE.bmp out/assets/palette.bin
-	cat out/assets/palette.bin >> out/HD.img
+	cat out/assets/palette.bin >> $(IMAGE)
 
 
 	gcc -o out/conv_asset.o src/assets/conv_asset.c
@@ -59,19 +63,22 @@ boot:
 	$(NASM) -f elf32 -F dwarf -g src/bootup/booter.asm -o out/booter.o
 	$(LD) -T src/bootup/booter_link.ld -m elf_i386  out/booter.o -o out/booter.elf
 	$(OBJC) -O binary out/booter.elf out/booter.o1
-	dd if=out/booter.o1 of=out/HD.img bs=512 conv=notrunc
+	dd if=out/booter.o1 of=$(IMAGE) bs=512 conv=notrunc
 
 game:
 	$(NASM) -f elf32 -F dwarf -g src/game/game.asm -o out/game.o
 	$(LD) -T src/game/game_link.ld -m elf_i386  out/game.o -o out/game.elf
 	$(OBJC) -O binary out/game.elf out/game.o1
-	dd if=out/game.o1 of=out/HD.img bs=512 seek=1
+	dd if=out/game.o1 of=$(IMAGE) bs=512 seek=1
 
 
 qemu:	all
-	$(QEMU) -hda out/HD.img -enable-kvm -soundhw pcspk
+	$(QEMU) -fda $(IMAGE) -enable-kvm
 
 gdb:	all
-	$(QEMU) -S -s -hda out/HD.img -enable-kvm -soundhw pcspk &
+	$(QEMU) -S -s -fda $(IMAGE) -enable-kvm &
 	sleep 1
 	$(GDB) -ix gdbinit_real_mode.txt -ex 'target remote localhost:1234' -ex 'set architecture i8086'  -ex 'file out/game.elf' -ex 'set step-mode'
+
+dosbox:	all
+	dosbox -fastlaunch -c "mount c ./out/" -c "loadfix" -c "c:" -c "imgmount 0 $(IMAGE) -t floppy -fs none" -c "boot -l a"

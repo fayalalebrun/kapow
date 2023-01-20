@@ -2,15 +2,17 @@ update_keys_pressed:
 	push bp
 	mov bp, sp
 
+kmore:	in al, 0x64
+	test al, 0x1
+	jz kcont		;If there are still bytes in the keyboard's output buffer, keep requesting bytes
+
 	mov bl, 0		;value that will be written
 	mov cx, 1
-kmore:	in al, 0x60
+	in al, 0x60
 	call handle_scan_code
+	jmp kmore
 	
-	in al, 0x64
-	test al, 0x1
-	jnz kmore		;If there are still bytes in the keyboard's output buffer, keep requesting bytes
-
+kcont:	
 
 
 	mov sp, bp
