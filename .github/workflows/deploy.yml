@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get original files
+        run: |
+          # Fetch the tag containing the original working files
+          git fetch origin tag original-working-binaries
+          # Extract all original files that worked
+          git show original-working-binaries:dosbox.js > dosbox.js
+          git show original-working-binaries:dosbox.wasm > dosbox.wasm
+          git show original-working-binaries:kapow.data > kapow.data
+          git show original-working-binaries:index.html > index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Create deployment directory
+        run: |
+          mkdir -p _site
+          cp dosbox.js _site/
+          cp dosbox.wasm _site/
+          cp kapow.data _site/
+          cp index.html _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
